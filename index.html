@@ -281,6 +281,7 @@ function allOpenClaims(){
 
 /* --- Speicher: Claude-Ablage, sonst Browser-Ablage, sonst nur Fenster --- */
 let storageMode = 'unknown';   // claude | browser | memory
+function hasClaudeStorage(){ return !!(typeof window!=='undefined' && window.storage && typeof window.storage.set==='function'); }
 
 function payload(){
   return JSON.stringify({transactions:state.transactions, budgets:state.budgets, categories:state.categories});
@@ -536,7 +537,7 @@ function renderDashboard(){
 }
 
 function renderSaveBanner(){
-  if(storageMode==='browser'){
+  if(storageMode==='browser' && hasClaudeStorage()){
     return `<div class="save-banner amber">
       <div class="sb-title">Gespeichert wird im Browser</div>
       <div class="sb-text">Die Ablage von Claude antwortet nicht, deshalb liegen deine Daten in diesem Browser auf diesem Gerät. Sie bleiben dort erhalten, sind aber nicht auf anderen Geräten sichtbar und verschwinden, wenn du die Browserdaten löschst.</div>
@@ -589,7 +590,7 @@ function renderDataBox(){
     </div></div></div>`;
   return `<div class="section"><div class="demo-box">
     <div class="demo-title">Deine Daten</div>
-    <div class="demo-text">${hasData?`${state.transactions.length} Buchungen gespeichert.`:'Noch keine Buchungen.'} Über die Sicherung kannst du sie als Text herauskopieren und jederzeit wieder einspielen.</div>
+    <div class="demo-text">${hasData?`${state.transactions.length} Buchungen gespeichert`:'Noch keine Buchungen'}${storageMode==='browser'?' – auf diesem Gerät':(storageMode==='claude'?' – in deinem Claude-Konto':'')}. Über die Sicherung kannst du sie als Text herauskopieren und jederzeit wieder einspielen.</div>
     <div class="demo-actions">
       <button class="btn btn-secondary" data-action="openBackup">Sicherung</button>
       ${hasData?`<button class="btn btn-secondary" data-action="askWipe">Alles löschen</button>`:''}

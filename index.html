@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1B4B43">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kassenbuch">
+<meta name="description" content="Privates Kassenbuch mit Auslagen-Gegenrechnung, Budgets und Jahresansicht.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20512%20512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%2796%27%20fill%3D%27%231B4B43%27/%3E%3Crect%20x%3D%27120%27%20y%3D%27150%27%20width%3D%27272%27%20height%3D%27230%27%20rx%3D%2718%27%20fill%3D%27%23EFEAE0%27/%3E%3Crect%20x%3D%27120%27%20y%3D%27150%27%20width%3D%27272%27%20height%3D%2746%27%20rx%3D%2718%27%20fill%3D%27%23A8792B%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27240%27%20width%3D%27200%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%23CCC1A6%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27286%27%20width%3D%27150%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%23CCC1A6%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27332%27%20width%3D%2796%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%231B4B43%27/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20512%20512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%2796%27%20fill%3D%27%231B4B43%27/%3E%3Crect%20x%3D%27120%27%20y%3D%27150%27%20width%3D%27272%27%20height%3D%27230%27%20rx%3D%2718%27%20fill%3D%27%23EFEAE0%27/%3E%3Crect%20x%3D%27120%27%20y%3D%27150%27%20width%3D%27272%27%20height%3D%2746%27%20rx%3D%2718%27%20fill%3D%27%23A8792B%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27240%27%20width%3D%27200%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%23CCC1A6%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27286%27%20width%3D%27150%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%23CCC1A6%27/%3E%3Crect%20x%3D%27156%27%20y%3D%27332%27%20width%3D%2796%27%20height%3D%2716%27%20rx%3D%278%27%20fill%3D%27%231B4B43%27/%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22Kassenbuch%22%2C%20%22short_name%22%3A%20%22Kassenbuch%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%23EFEAE0%22%2C%20%22theme_color%22%3A%20%22%231B4B43%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A//www.w3.org/2000/svg%2527%2520viewBox%253D%25270%25200%2520512%2520512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%252796%2527%2520fill%253D%2527%25231B4B43%2527/%253E%253Crect%2520x%253D%2527120%2527%2520y%253D%2527150%2527%2520width%253D%2527272%2527%2520height%253D%2527230%2527%2520rx%253D%252718%2527%2520fill%253D%2527%2523EFEAE0%2527/%253E%253Crect%2520x%253D%2527120%2527%2520y%253D%2527150%2527%2520width%253D%2527272%2527%2520height%253D%252746%2527%2520rx%253D%252718%2527%2520fill%253D%2527%2523A8792B%2527/%253E%253Crect%2520x%253D%2527156%2527%2520y%253D%2527240%2527%2520width%253D%2527200%2527%2520height%253D%252716%2527%2520rx%253D%25278%2527%2520fill%253D%2527%2523CCC1A6%2527/%253E%253Crect%2520x%253D%2527156%2527%2520y%253D%2527286%2527%2520width%253D%2527150%2527%2520height%253D%252716%2527%2520rx%253D%25278%2527%2520fill%253D%2527%2523CCC1A6%2527/%253E%253Crect%2520x%253D%2527156%2527%2520y%253D%2527332%2527%2520width%253D%252796%2527%2520height%253D%252716%2527%2520rx%253D%25278%2527%2520fill%253D%2527%25231B4B43%2527/%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22any%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D">
+<title>Kassenbuch</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --paper:#EFEAE0;
+  --paper-raised:#F6F2E8;
+  --ink:#20291F;
+  --ink-light:#726C5C;
+  --line:#CCC1A6;
+  --pine:#1B4B43;
+  --pine-soft:#E4EAE3;
+  --brass:#A8792B;
+  --brass-soft:#F2E7CE;
+  --rust:#A6402F;
+  --rust-soft:#F3DED8;
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0;}
+body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; min-height:100vh; display:flex; justify-content:center;}
+#root{width:100%; max-width:440px; min-height:100vh; position:relative; padding-bottom:96px;}
+h1,h2{font-family:'Source Serif 4',serif; margin:0; font-weight:600;}
+.mono{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums;}
+
+.header{padding:22px 20px 14px;}
+.header .eyebrow{font-size:13px; color:var(--ink-light); margin-bottom:2px;}
+.header h1{font-size:26px;}
+
+.month-switch{display:flex; align-items:center; justify-content:space-between; margin-top:14px; padding:0 20px;}
+.month-switch button{background:none; border:1px solid var(--line); color:var(--ink); width:32px; height:32px; border-radius:6px; font-size:16px; cursor:pointer;}
+.month-switch .label{font-size:15px; font-weight:500;}
+
+.hero{margin:18px 20px 6px; padding:20px 18px; background:var(--paper-raised); border:1px solid var(--line); border-radius:10px;}
+.hero .label{font-size:13px; color:var(--ink-light);}
+.hero .amount{font-size:34px; font-weight:600; margin-top:4px;}
+.hero .amount.neg{color:var(--rust);}
+.hero .amount.pos{color:var(--pine);}
+.hero .sub{display:flex; gap:18px; margin-top:12px; font-size:13px; color:var(--ink-light);}
+.hero .sub b{color:var(--ink); font-weight:600;}
+
+.claims{margin:14px 20px 0; padding:15px 17px; background:var(--brass-soft); border:1px solid var(--brass); border-radius:10px;}
+.claims .top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+.claims .top .label{font-size:13px; color:#6E521C;}
+.claims .top .amount{font-size:20px; font-weight:600; color:#6E521C;}
+.claims .item{display:flex; justify-content:space-between; font-size:13px; color:#6E521C; padding:3px 0;}
+
+.progress-track{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:6px;}
+.progress-fill{height:100%; background:var(--pine);}
+.progress-fill.over{background:var(--rust);}
+
+.section{padding:18px 20px 4px;}
+.section-title{font-size:13px; color:var(--ink-light); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:10px;}
+.link-btn{background:none; border:none; color:var(--pine); font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; padding:0; text-align:left;}
+
+.ledger-row{display:flex; align-items:center; justify-content:space-between; padding:12px 2px; border-bottom:1px solid var(--line); gap:10px; cursor:pointer; background:none; border-left:none; border-right:none; border-top:none; width:100%; text-align:left; font-family:'Inter',sans-serif; color:var(--ink);}
+.ledger-row:last-child{border-bottom:none;}
+.row-left{display:flex; align-items:center; gap:10px; min-width:0;}
+.cat-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+.row-text{min-width:0;}
+.row-payee{font-size:15px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.row-meta{font-size:12.5px; color:var(--ink-light); margin-top:1px;}
+.row-meta .open-flag{color:var(--brass); font-weight:600;}
+.row-right{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+.row-amount{font-size:15px; font-weight:600; text-align:right;}
+.row-amount.income{color:var(--pine);}
+.row-orig{font-size:12px; color:var(--ink-light); text-decoration:line-through; margin-top:1px;}
+.row-del{background:none; border:none; color:var(--ink-light); font-size:16px; cursor:pointer; padding:2px 4px; line-height:1;}
+
+.empty-state{padding:26px 4px; color:var(--ink-light); font-size:14px; line-height:1.5;}
+
+.budget-row{padding:14px 2px; border-bottom:1px solid var(--line);}
+.budget-row:last-child{border-bottom:none;}
+.budget-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:10px;}
+.budget-name{display:flex; align-items:center; gap:8px; font-size:14.5px; font-weight:500; min-width:0;}
+.budget-name .txt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.budget-input{width:78px; text-align:right; border:1px solid var(--line); border-radius:6px; padding:5px 8px; font-family:'IBM Plex Mono',monospace; font-size:13.5px; background:var(--paper-raised); color:var(--ink); flex-shrink:0;}
+.budget-remain{font-size:12.5px; color:var(--ink-light); margin-top:4px;}
+.budget-remain.over{color:var(--rust);}
+
+.sub-row{display:flex; justify-content:space-between; align-items:center; padding:14px 2px; border-bottom:1px solid var(--line); gap:10px;}
+.sub-row:last-child{border-bottom:none;}
+.sub-name{font-size:15px; font-weight:500;}
+.sub-meta{font-size:12.5px; color:var(--ink-light); margin-top:2px;}
+.sub-amount{font-size:15px; font-weight:600;}
+.sub-total{margin:18px 20px 0; padding:16px 18px; background:var(--pine); color:var(--paper); border-radius:10px; display:flex; justify-content:space-between; align-items:baseline;}
+.sub-total .label{font-size:13px; opacity:0.85;}
+.sub-total .amount{font-size:22px; font-weight:600;}
+
+.nav{position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:440px; background:var(--paper-raised); border-top:1px solid var(--line); display:flex; padding:8px 6px calc(8px + env(safe-area-inset-bottom)); z-index:20;}
+.nav button{flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 2px; color:var(--ink-light); font-family:'Inter',sans-serif; font-size:11px; cursor:pointer;}
+.nav button.active{color:var(--pine); font-weight:600;}
+.nav-dot{width:5px; height:5px; border-radius:50%; background:transparent;}
+.nav button.active .nav-dot{background:var(--brass);}
+
+.fab{position:fixed; bottom:78px; left:50%; transform:translateX(calc(-50% + 170px)); width:52px; height:52px; border-radius:50%; background:var(--brass); color:var(--paper); font-size:26px; border:none; box-shadow:0 3px 10px rgba(0,0,0,0.22); cursor:pointer; z-index:21; display:flex; align-items:center; justify-content:center; line-height:0;}
+
+.backdrop{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(32,41,31,0.42); z-index:30; display:flex; align-items:flex-end; justify-content:center; overflow:hidden;}
+.sheet{width:100%; max-width:440px; background:var(--paper-raised); border-radius:16px 16px 0 0;
+  padding:16px 20px 0;
+  height:94vh; height:94dvh; overflow-y:auto; overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;}
+/* Puffer, damit auch das unterste Feld über die Tastatur hochgescrollt werden kann */
+.sheet::after{content:''; display:block; height:60vh;}
+.sheet-grip{width:38px; height:4px; border-radius:2px; background:var(--line); margin:0 auto 14px;}
+.sheet h2{font-size:19px; margin-bottom:14px;}
+.type-toggle{display:flex; gap:8px; margin-bottom:14px;}
+.type-toggle button{flex:1; padding:9px; border-radius:8px; border:1px solid var(--line); background:var(--paper); color:var(--ink-light); font-size:13.5px; font-weight:500; cursor:pointer; font-family:'Inter',sans-serif;}
+.type-toggle button.active-expense{background:var(--rust-soft); border-color:var(--rust); color:var(--rust);}
+.type-toggle button.active-income{background:var(--pine-soft); border-color:var(--pine); color:var(--pine);}
+
+.field{margin-bottom:12px;}
+.field label{display:block; font-size:12.5px; color:var(--ink-light); margin-bottom:5px;}
+.field input, .field select{width:100%; padding:10px 11px; border:1px solid var(--line); border-radius:8px; background:var(--paper); font-family:'Inter',sans-serif; font-size:14.5px; color:var(--ink);}
+.field input.mono-input{font-family:'IBM Plex Mono',monospace;}
+.hint{font-size:12.5px; color:var(--ink-light); margin:-2px 0 12px; line-height:1.45;}
+.error{font-size:13px; color:var(--rust); margin-bottom:10px;}
+
+.divider{height:1px; background:var(--line); margin:16px 0 14px;}
+.split-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+.split-head .t{font-size:13px; color:var(--ink-light);}
+.split-line{display:flex; gap:8px; align-items:center; margin-bottom:8px;}
+.split-line input.n, .settle-row input.n{flex:1; min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:var(--paper); font-size:14px; font-family:'Inter',sans-serif; color:var(--ink);}
+.split-line input.a, .settle-row input.a{width:92px; flex-shrink:0; padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:var(--paper); font-size:14px; font-family:'IBM Plex Mono',monospace; text-align:right; color:var(--ink);}
+.split-line .rm{background:none; border:none; color:var(--ink-light); font-size:17px; cursor:pointer; padding:2px 2px;}
+.split-summary{font-size:13px; color:var(--ink-light); margin-top:2px; line-height:1.5;}
+.split-summary b{color:var(--ink); font-weight:600;}
+
+.settle-row{display:flex; align-items:center; gap:8px; padding:9px 2px; border-bottom:1px solid var(--line);}
+.settle-row:last-of-type{border-bottom:none;}
+.settle-left{display:flex; align-items:center; gap:10px; min-width:0;}
+.check{width:22px; height:22px; border-radius:6px; border:1.5px solid var(--line); background:var(--paper); flex-shrink:0; cursor:pointer; color:var(--paper); font-size:13px; line-height:1; display:flex; align-items:center; justify-content:center; padding:0;}
+.check.on{background:var(--pine); border-color:var(--pine);}
+.settle-name{font-size:14.5px; font-weight:500;}
+.settle-state{font-size:12px; color:var(--ink-light); margin-top:1px;}
+.settle-state.paid{color:var(--pine);}
+.settle-amount{font-size:14.5px; font-weight:600;}
+.settle-amount.paid{color:var(--ink-light); text-decoration:line-through;}
+
+.detail-amount{font-size:28px; font-weight:600; margin-bottom:2px;}
+.detail-meta{font-size:13px; color:var(--ink-light); margin-bottom:4px;}
+
+.swatches{display:flex; flex-wrap:wrap; gap:9px;}
+.swatch{width:30px; height:30px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0;}
+.swatch.selected{border-color:var(--ink); box-shadow:0 0 0 2px var(--paper-raised) inset;}
+
+.cat-manage-row{display:flex; align-items:center; justify-content:space-between; padding:12px 2px; border-bottom:1px solid var(--line); gap:10px;}
+.cat-manage-name{font-size:14.5px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.cat-manage-meta{font-size:12px; color:var(--ink-light); margin-top:1px;}
+
+.sheet-actions{display:flex; gap:10px; margin-top:16px; padding-bottom:8px;}
+.btn{flex:1; padding:12px; border-radius:8px; border:none; font-size:14.5px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif;}
+.btn-primary{background:var(--pine); color:var(--paper);}
+.btn-secondary{background:none; color:var(--ink-light); border:1px solid var(--line);}
+.btn-danger{background:none; color:var(--rust); border:1px solid var(--rust);}
+
+.ym-row{display:flex; align-items:center; gap:9px; padding:5px 0;}
+.ym-label{width:30px; font-size:12px; color:var(--ink-light); flex-shrink:0;}
+.ym-bars{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.ym-bar{height:7px; border-radius:2px; min-width:1px;}
+.ym-bar.inc{background:var(--pine);}
+.ym-bar.exp{background:var(--brass);}
+.ym-net{width:82px; text-align:right; font-size:12.5px; font-weight:600; flex-shrink:0;}
+.ym-net.neg{color:var(--rust);}
+.ym-legend{display:flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-light);}
+.ym-legend i{width:9px; height:9px; border-radius:2px; display:inline-block;}
+.ym-legend i.inc{background:var(--pine);}
+.ym-legend i.exp{background:var(--brass); margin-left:6px;}
+.nav button{font-size:10.5px;}
+.toggle-row{display:flex; align-items:flex-start; gap:11px; width:100%; text-align:left; padding:12px 13px; margin-bottom:4px;
+  border:1px solid var(--line); border-radius:9px; background:var(--paper); cursor:pointer; font-family:'Inter',sans-serif;}
+.toggle-row .check{margin-top:1px;}
+.tr-title{display:block; font-size:14px; font-weight:500; color:var(--ink);}
+.tr-sub{display:block; font-size:12.5px; color:var(--ink-light); line-height:1.45; margin-top:3px;}
+.suggest-line{display:flex; align-items:baseline; justify-content:space-between; gap:10px; width:100%;
+  padding:9px 11px; margin-bottom:12px; border:1px solid var(--line); border-radius:8px; background:var(--paper);
+  font-family:'Inter',sans-serif; font-size:14px; color:var(--ink); cursor:pointer; text-align:left;}
+.suggest-line:active{background:var(--pine-soft); border-color:var(--pine);}
+.sl-text{font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.sl-amt{font-size:11.5px; color:var(--ink-light); flex-shrink:0;}
+.suggest-empty{height:6px;}
+.save-banner{margin:14px 20px 0; padding:14px 16px; background:var(--rust-soft); border:1px solid var(--rust); border-radius:10px;}
+.save-banner.amber{background:var(--brass-soft); border-color:var(--brass);}
+.save-banner.amber .sb-title{color:#6E521C;}
+.save-banner.amber .sb-text{color:#6E521C;}
+.sb-title{font-size:14.5px; font-weight:600; color:var(--rust); margin-bottom:4px;}
+.sb-text{font-size:12.5px; color:#7A3527; line-height:1.5;}
+.sb-actions{display:flex; gap:9px; margin-top:11px;}
+.sb-actions .btn{padding:9px; font-size:13px;}
+.data-area{width:100%; height:110px; padding:10px 11px; border:1px solid var(--line); border-radius:8px; background:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink); resize:vertical;}
+.demo-box{border:1px dashed var(--line); border-radius:10px; padding:15px 16px; margin-top:8px;}
+.demo-title{font-size:14.5px; font-weight:600; margin-bottom:5px;}
+.demo-text{font-size:13px; color:var(--ink-light); line-height:1.5;}
+.demo-actions{display:flex; gap:9px; margin-top:12px;}
+.demo-actions .btn{padding:10px; font-size:13.5px;}
+.loading{padding:40px 20px; color:var(--ink-light); font-size:14px; text-align:center;}
+</style>
+</head>
+<body>
+<div id="root"><div class="loading">Kassenbuch wird geöffnet …</div></div>
+
+<script>
+const MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const STORAGE_KEY = 'kassenbuch-data-v2';
+const LEGACY_KEY = 'kassenbuch-data';
+const PALETTE = ['#7A8B69','#5B7C99','#8C7355','#9C6B98','#A8792B','#6B8E7F','#B0755C','#1B4B43','#8A8577','#A6402F','#4E6E8E','#7E6B9B'];
+
+const DEFAULT_CATEGORIES = [
+  {id:'lebensmittel', name:'Lebensmittel',      color:'#7A8B69', type:'expense'},
+  {id:'wohnen',       name:'Miete & Wohnen',    color:'#5B7C99', type:'expense'},
+  {id:'transport',    name:'Transport',         color:'#8C7355', type:'expense'},
+  {id:'freizeit',     name:'Freizeit',          color:'#9C6B98', type:'expense'},
+  {id:'abos',         name:'Abos & Streaming',  color:'#A8792B', type:'expense'},
+  {id:'gesundheit',   name:'Gesundheit',        color:'#6B8E7F', type:'expense'},
+  {id:'shopping',     name:'Shopping',          color:'#B0755C', type:'expense'},
+  {id:'sonstiges',    name:'Sonstiges',         color:'#8A8577', type:'expense'},
+  {id:'einkommen',    name:'Gehalt Hauptjob',    color:'#1B4B43', type:'income'},
+  {id:'nebenjob',     name:'Nebenjob',           color:'#6B8E7F', type:'income'}
+];
+
+let state = {
+  transactions: [], budgets: {}, categories: [],
+  month: currentMonthKey(),
+  tab: 'dashboard',
+  sheet: null,          // transaction | detail | categories | newCategory | editCategory
+  txDraft: null,        // Entwurf für neue Buchung
+  detailId: null,
+  catDraft: null,
+  confirm: null,
+  saveError: '',
+  storageNote: '',
+  lastSaved: null,
+  error: '',
+  loaded: false
+};
+
+function currentMonthKey(d=new Date()){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function uid(p){ return (p||'id')+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function catById(id){ return state.categories.find(c=>c.id===id) || {id:id,name:'Ohne Kategorie',color:'#8A8577',type:'expense'}; }
+function catsOfType(t){ return state.categories.filter(c=>c.type===t); }
+function isConsumption(catId){ const c=state.categories.find(x=>x.id===catId); return !(c && c.noConsumption); }
+function num(v){ const n=Number(String(v).replace(',','.')); return isNaN(n)?0:n; }
+function fmtMoney(n){ return n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+function fmtDate(iso){ const p=iso.split('-'); return p[2]+'.'+p[1]+'.'; }
+function monthLabel(k){ const [y,m]=k.split('-').map(Number); return MONTH_NAMES[m-1]+' '+y; }
+function shiftMonth(k,d){ let [y,m]=k.split('-').map(Number); m+=d; if(m<1){m=12;y--;} if(m>12){m=1;y++;} return y+'-'+String(m).padStart(2,'0'); }
+function escapeHtml(s){ const d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+
+/* --- Auslagen / Gegenrechnung --- */
+function splits(t){ return t.splits || []; }
+function settledSum(t){ return splits(t).filter(s=>s.settled).reduce((a,s)=>a+num(s.amount),0); }
+function openSum(t){ return splits(t).filter(s=>!s.settled).reduce((a,s)=>a+num(s.amount),0); }
+function ownShare(t){ return num(t.amount) - settledSum(t); }   // was dich die Buchung bisher wirklich gekostet hat
+function txById(id){ return state.transactions.find(t=>t.id===id); }
+function shareSummary(total, splitTotal){
+  const rest = total - splitTotal;
+  if(rest < 0) return `Du nimmst <b class="mono">${fmtMoney(-rest)}</b> mehr ein, als die Buchung gekostet hat · von anderen: <b class="mono">${fmtMoney(splitTotal)}</b>`;
+  return `Dein Anteil: <b class="mono">${fmtMoney(rest)}</b> · von anderen: <b class="mono">${fmtMoney(splitTotal)}</b>`;
+}
+function allOpenClaims(){
+  const out=[];
+  state.transactions.forEach(t=>{
+    splits(t).filter(s=>!s.settled).forEach(s=>out.push({tx:t, split:s}));
+  });
+  return out.sort((a,b)=>b.tx.date.localeCompare(a.tx.date));
+}
+
+/* --- Speicher: Claude-Ablage, sonst Browser-Ablage, sonst nur Fenster --- */
+let storageMode = 'unknown';   // claude | browser | memory
+
+function payload(){
+  return JSON.stringify({transactions:state.transactions, budgets:state.budgets, categories:state.categories});
+}
+
+async function claudeSet(v){
+  if(!window.storage || typeof window.storage.set!=='function') throw new Error('nicht verfügbar');
+  const res = await window.storage.set(STORAGE_KEY, v, false);
+  if(!res) throw new Error('Speicher hat nichts zurückgegeben');
+  return res;
+}
+async function claudeGet(key){
+  if(!window.storage || typeof window.storage.get!=='function') throw new Error('nicht verfügbar');
+  return await window.storage.get(key, false);
+}
+function browserSet(v){
+  if(typeof localStorage==='undefined') throw new Error('nicht verfügbar');
+  localStorage.setItem(STORAGE_KEY, v);
+}
+function browserGet(){
+  if(typeof localStorage==='undefined') return null;
+  return localStorage.getItem(STORAGE_KEY);
+}
+
+async function detectStorage(){
+  try{ await claudeSet(payload()); storageMode='claude'; return; }catch(e){ state.storageNote = e.message||'Fehler'; }
+  try{ browserSet(payload()); const back=browserGet(); if(back!==null){ storageMode='browser'; return; } }catch(e){}
+  storageMode='memory';
+}
+
+async function loadState(){
+  let data=null, raw=null;
+  try{ const r=await claudeGet(STORAGE_KEY); if(r&&r.value) raw=r.value; }catch(e){}
+  if(!raw){ try{ const o=await claudeGet(LEGACY_KEY); if(o&&o.value) raw=o.value; }catch(e){} }
+  if(!raw){ try{ raw=browserGet(); }catch(e){} }
+  if(raw){ try{ data=JSON.parse(raw); }catch(e){} }
+  state.transactions = ((data&&data.transactions)||[]).map(t=>({...t, splits: t.splits||[]}));
+  state.budgets      = (data&&data.budgets)||{};
+  state.categories   = (data&&data.categories&&data.categories.length)?data.categories:DEFAULT_CATEGORIES.slice();
+  state.loaded=true;
+}
+
+let saveTimer=null, saveInFlight=false;
+
+async function writeOnce(){
+  const v = payload();
+  let claudeErr=null;
+  try{ await claudeSet(v); storageMode='claude'; }
+  catch(e){ claudeErr=e; }
+  let browserOk=false;
+  try{ browserSet(v); browserOk=true; }catch(e){}
+  if(!claudeErr) return 'claude';
+  if(browserOk){ storageMode='browser'; return 'browser'; }
+  storageMode='memory';
+  throw claudeErr;
+}
+
+async function saveState(){
+  if(saveTimer) clearTimeout(saveTimer);
+  return new Promise(resolve=>{
+    saveTimer = setTimeout(async ()=>{
+      if(saveInFlight){ resolve(); return; }
+      saveInFlight = true;
+      let where=null, lastErr=null;
+      for(let attempt=0; attempt<2 && !where; attempt++){
+        try{ where = await writeOnce(); }
+        catch(e){ lastErr=e; await new Promise(r=>setTimeout(r, 300)); }
+      }
+      saveInFlight=false;
+      state.saveError = where ? '' : (lastErr && lastErr.message ? lastErr.message : 'unbekannter Fehler');
+      if(where) state.lastSaved = new Date();
+      render();
+      resolve();
+    }, 250);
+  });
+}
+
+async function saveNow(){
+  if(saveTimer) clearTimeout(saveTimer);
+  try{ await writeOnce(); state.saveError=''; state.lastSaved=new Date(); }
+  catch(e){ state.saveError = e.message || 'unbekannter Fehler'; }
+  render();
+}
+
+/* --- Datei-Sicherung --- */
+function downloadBackup(){
+  try{
+    const blob = new Blob([payload()], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'kassenbuch-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1000);
+    return true;
+  }catch(e){ return false; }
+}
+
+function transactionsForMonth(k){ return state.transactions.filter(t=>t.date.slice(0,7)===k); }
+function countUsage(id){ return state.transactions.filter(t=>t.category===id).length; }
+
+function detectSubscriptions(){
+  const g={};
+  state.transactions.filter(t=>t.type==='expense'&&isConsumption(t.category)).forEach(t=>{
+    const k=t.payee.trim().toLowerCase(); (g[k]=g[k]||[]).push(t);
+  });
+  const out=[];
+  Object.values(g).forEach(txs=>{
+    const ms=new Set(txs.map(t=>t.date.slice(0,7)));
+    if(ms.size>=2) out.push({payee:txs[0].payee, category:txs[0].category,
+      amount:txs.reduce((s,t)=>s+ownShare(t),0)/txs.length, months:ms.size});
+  });
+  return out.sort((a,b)=>b.amount-a.amount);
+}
+
+function frequentPayees(type, limit){
+  const g={};
+  state.transactions.filter(t=>t.type===type).forEach(t=>{
+    const k=t.payee.trim().toLowerCase();
+    if(!k) return;
+    if(!g[k]) g[k]={payee:t.payee.trim(), count:0, last:t.date, amount:num(t.amount), category:t.category};
+    g[k].count++;
+    if(t.date>g[k].last){ g[k].last=t.date; g[k].amount=num(t.amount); g[k].category=t.category; }
+  });
+  return Object.values(g)
+    .sort((a,b)=> b.count-a.count || b.last.localeCompare(a.last))
+    .slice(0, limit||8);
+}
+
+function bestPayeeMatch(){
+  const d=state.txDraft;
+  if(!d) return null;
+  const q=(d.payee||'').trim().toLowerCase();
+  const all=frequentPayees(d.type, 50);
+  if(!q) return all.find(f=>f.count>1) || null;
+  const starts=all.filter(f=>f.payee.toLowerCase().startsWith(q) && f.payee.toLowerCase()!==q);
+  if(starts.length) return starts[0];
+  const inside=all.filter(f=>f.payee.toLowerCase().includes(q) && f.payee.toLowerCase()!==q);
+  return inside[0] || null;
+}
+
+function payeeSuggestHtml(){
+  const f=bestPayeeMatch();
+  if(!f) return '<div class="suggest-empty"></div>';
+  return `<button class="suggest-line" data-action="useSuggestion">
+    <span class="sl-text">${escapeHtml(f.payee)}</span>
+    <span class="sl-amt mono">${fmtMoney(f.amount)} · ${escapeHtml(catById(f.category).name)}</span>
+  </button>`;
+}
+
+function updatePayeeSuggestion(){
+  const box=document.getElementById('payee-suggest');
+  if(!box) return;
+  box.innerHTML=payeeSuggestHtml();
+  const btn=box.querySelector('[data-action]');
+  if(btn) btn.addEventListener('click', onAction);
+}
+
+function render(){
+  const root=document.getElementById('root');
+  if(!state.loaded){ root.innerHTML='<div class="loading">Kassenbuch wird geöffnet …</div>'; return; }
+  let html=renderSaveBanner()+renderHeader();
+  if(state.tab==='dashboard') html+=renderDashboard();
+  else if(state.tab==='buchungen') html+=renderBuchungen();
+  else if(state.tab==='budget') html+=renderBudget();
+  else if(state.tab==='abos') html+=renderAbos();
+  else if(state.tab==='jahr') html+=renderJahr();
+  html+=`<button class="fab" data-action="openSheet">+</button>`+renderNav();
+  if(state.sheet==='transaction') html+=renderTransactionSheet();
+  else if(state.sheet==='detail') html+=renderDetailSheet();
+  else if(state.sheet==='backup') html+=renderBackupSheet();
+  else if(state.sheet==='categories') html+=renderCategoriesSheet();
+  else if(state.sheet==='newCategory'||state.sheet==='editCategory') html+=renderCategoryFormSheet();
+  root.innerHTML=html;
+  bindEvents();
+}
+
+function renderHeader(){
+  const titles={dashboard:'Übersicht', buchungen:'Buchungen', budget:'Budget', abos:'Abos', jahr:'Jahr'};
+  const isYear = state.tab==='jahr';
+  return `<div class="header"><div class="eyebrow">Privates Kassenbuch</div><h1>${titles[state.tab]||'Übersicht'}</h1></div>
+  <div class="month-switch">
+    <button data-action="${isYear?'prevYear':'prevMonth'}">‹</button>
+    <div class="label">${isYear?state.month.slice(0,4):monthLabel(state.month)}</div>
+    <button data-action="${isYear?'nextYear':'nextMonth'}">›</button>
+  </div>`;
+}
+
+function renderDashboard(){
+  const txs=transactionsForMonth(state.month);
+  const income=txs.filter(t=>t.type==='income').reduce((s,t)=>s+num(t.amount),0);
+  const expense=txs.filter(t=>t.type==='expense').reduce((s,t)=>s+ownShare(t),0);
+  const reserved=txs.filter(t=>t.type==='expense'&&!isConsumption(t.category)).reduce((s,t)=>s+ownShare(t),0);
+  const consumption=expense-reserved;
+  const balance=income-expense;
+  const bt=Object.values(state.budgets).reduce((s,v)=>s+num(v||0),0);
+  const pct=bt>0?Math.max(0,Math.min(100,(consumption/bt)*100)):0;
+  const over=bt>0&&consumption>bt;
+
+  const claims=allOpenClaims();
+  const claimTotal=claims.reduce((s,c)=>s+num(c.split.amount),0);
+  const claimsCard = claims.length ? `<div class="claims">
+    <div class="top"><div class="label">Dir wird noch erstattet</div><div class="amount mono">${fmtMoney(claimTotal)}</div></div>
+    ${claims.slice(0,4).map(c=>`<div class="item"><span>${escapeHtml(c.split.name)} · ${escapeHtml(c.tx.payee)}</span><span class="mono">${fmtMoney(num(c.split.amount))}</span></div>`).join('')}
+    ${claims.length>4?`<div class="item"><span>und ${claims.length-4} weitere</span><span></span></div>`:''}
+  </div>`:'';
+
+  const byCat={};
+  txs.filter(t=>t.type==='expense'&&isConsumption(t.category)).forEach(t=>{ byCat[t.category]=(byCat[t.category]||0)+ownShare(t); });
+
+  const incByCat={};
+  txs.filter(t=>t.type==='income').forEach(t=>{ incByCat[t.category]=(incByCat[t.category]||0)+num(t.amount); });
+  const incList=Object.entries(incByCat).sort((a,b)=>b[1]-a[1]);
+  const incomeSection = incList.length>1 ? `<div class="section">
+    <div class="section-title">Einnahmen nach Kategorie</div>
+    ${incList.map(([id,amt])=>{
+      const c=catById(id), p=Math.max(0, income>0?(amt/income)*100:0);
+      return `<div class="budget-row">
+        <div class="budget-top">
+          <div class="budget-name"><span class="cat-dot" style="background:${c.color}"></span><span class="txt">${escapeHtml(c.name)}</span></div>
+          <div class="mono">${fmtMoney(amt)}</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:${p}%; background:${c.color}"></div></div>
+        <div class="budget-remain">${Math.round(p)} % deiner Einnahmen</div>
+      </div>`;
+    }).join('')}
+  </div>` : '';
+  const top=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const rows=top.length?top.map(([id,amt])=>{
+    const c=catById(id), p=Math.max(0, consumption>0?(amt/consumption)*100:0);
+    return `<div class="budget-row">
+      <div class="budget-top">
+        <div class="budget-name"><span class="cat-dot" style="background:${c.color}"></span><span class="txt">${escapeHtml(c.name)}</span></div>
+        <div class="mono">${fmtMoney(amt)}</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${p}%; background:${c.color}"></div></div>
+    </div>`;
+  }).join(''):`<div class="empty-state">Noch keine Buchungen in diesem Monat. Tippe unten auf „+“, um die erste einzutragen.</div>`;
+
+  return `<div class="hero">
+    <div class="label">Saldo ${monthLabel(state.month)}</div>
+    <div class="amount mono ${balance<0?'neg':'pos'}">${balance<0?'−':''}${fmtMoney(Math.abs(balance))}</div>
+    <div class="sub"><div>Einnahmen <b class="mono">${fmtMoney(income)}</b></div><div>Ausgaben <b class="mono">${fmtMoney(expense)}</b></div></div>
+    ${reserved>0?`<div class="sub" style="margin-top:6px;"><div>davon Rücklagen &amp; Umbuchungen <b class="mono">${fmtMoney(reserved)}</b></div></div>`:''}
+    ${bt>0?`<div style="margin-top:14px;">
+      <div class="sub" style="margin-top:0;"><div>Budget genutzt</div><div class="mono">${fmtMoney(consumption)} / ${fmtMoney(bt)}</div></div>
+      <div class="progress-track"><div class="progress-fill ${over?'over':''}" style="width:${pct}%"></div></div></div>`:''}
+  </div>
+  ${claimsCard}
+  <div class="section"><div class="section-title">Ausgaben nach Kategorie</div>${rows}</div>
+  ${incomeSection}
+  ${renderDataBox()}`;
+}
+
+function renderSaveBanner(){
+  if(storageMode==='browser'){
+    return `<div class="save-banner amber">
+      <div class="sb-title">Gespeichert wird im Browser</div>
+      <div class="sb-text">Die Ablage von Claude antwortet nicht, deshalb liegen deine Daten in diesem Browser auf diesem Gerät. Sie bleiben dort erhalten, sind aber nicht auf anderen Geräten sichtbar und verschwinden, wenn du die Browserdaten löschst.</div>
+      <div class="sb-actions">
+        <button class="btn btn-secondary" data-action="openBackup">Sicherung</button>
+        <button class="btn btn-secondary" data-action="retrySave">Claude erneut versuchen</button>
+      </div></div>`;
+  }
+  if(state.saveError){
+    return `<div class="save-banner">
+      <div class="sb-title">Nicht gespeichert</div>
+      <div class="sb-text">Weder Claude noch der Browser nehmen die Daten an (${escapeHtml(state.saveError)}). Alles ist nur so lange da, wie dieses Fenster offen bleibt. Sichere dir den Text, bevor du es schließt.</div>
+      <div class="sb-actions">
+        <button class="btn btn-primary" data-action="openBackup">Jetzt sichern</button>
+        <button class="btn btn-secondary" data-action="retrySave">Nochmal versuchen</button>
+      </div></div>`;
+  }
+  return '';
+}
+
+function renderBackupSheet(){
+  return `<div class="backdrop" data-action="closeSheetBackdrop">
+    <div class="sheet" onclick="event.stopPropagation()"><div class="sheet-grip"></div>
+      <h2>Sicherung</h2>
+      <div class="hint">Kopiere den Text und lege ihn irgendwo ab. Über das Feld darunter spielst du eine Sicherung wieder ein.</div>
+      <textarea class="data-area" readonly id="backup-out">${escapeHtml(payload())}</textarea>
+      <div class="demo-actions" style="margin:10px 0 16px;">
+        <button class="btn btn-secondary" data-action="copyBackup">Kopieren</button>
+        <button class="btn btn-secondary" data-action="downloadBackup">Als Datei laden</button>
+      </div>
+      <div class="divider"></div>
+      <div class="field"><label>Sicherung einspielen</label>
+        <textarea class="data-area" id="backup-in" placeholder="Gesicherten Text hier einfügen"></textarea></div>
+      ${state.error?`<div class="error">${escapeHtml(state.error)}</div>`:''}
+      <div class="sheet-actions">
+        <button class="btn btn-secondary" data-action="closeSheet">Schließen</button>
+        <button class="btn btn-primary" data-action="importBackup">Einspielen</button>
+      </div>
+    </div></div>`;
+}
+
+function renderDataBox(){
+  const hasData = state.transactions.length>0;
+  if(state.confirm==='wipe') return `<div class="section"><div class="demo-box">
+    <div class="demo-title">Wirklich alles löschen?</div>
+    <div class="demo-text">Alle Buchungen und Budgets werden entfernt. Das lässt sich nicht rückgängig machen. Sichere dir vorher den Text unter „Sicherung“, falls du unsicher bist.</div>
+    <div class="demo-actions">
+      <button class="btn btn-secondary" data-action="cancelConfirm">Abbrechen</button>
+      <button class="btn btn-danger" data-action="wipeData">Löschen</button>
+    </div></div></div>`;
+  return `<div class="section"><div class="demo-box">
+    <div class="demo-title">Deine Daten</div>
+    <div class="demo-text">${hasData?`${state.transactions.length} Buchungen gespeichert.`:'Noch keine Buchungen.'} Über die Sicherung kannst du sie als Text herauskopieren und jederzeit wieder einspielen.</div>
+    <div class="demo-actions">
+      <button class="btn btn-secondary" data-action="openBackup">Sicherung</button>
+      ${hasData?`<button class="btn btn-secondary" data-action="askWipe">Alles löschen</button>`:''}
+    </div></div></div>`;
+}
+
+function renderBuchungen(){
+  const txs=transactionsForMonth(state.month).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const rows=txs.length?txs.map(t=>{
+    const c=catById(t.category);
+    const hasSplit=splits(t).length>0;
+    const own=ownShare(t), op=openSum(t);
+    const meta = hasSplit
+      ? `${fmtDate(t.date)} · ${escapeHtml(c.name)}` + (op>0?` · <span class="open-flag">${fmtMoney(op)} offen</span>`:` · vollständig erstattet`)
+      : `${fmtDate(t.date)} · ${escapeHtml(c.name)}`;
+    return `<button class="ledger-row" data-action="openDetail" data-id="${t.id}">
+      <span class="row-left">
+        <span class="cat-dot" style="background:${c.color}"></span>
+        <span class="row-text">
+          <span class="row-payee">${escapeHtml(t.payee)}</span>
+          <span class="row-meta" style="display:block;">${meta}</span>
+        </span>
+      </span>
+      <span class="row-right">
+        <span>
+          <span class="row-amount mono ${(t.type==='income'||own<0)?'income':''}" style="display:block;">${(t.type==='income'||own<0)?'+':'−'}${fmtMoney(t.type==='income'?num(t.amount):Math.abs(own))}</span>
+          ${hasSplit&&settledSum(t)>0?`<span class="row-orig mono" style="display:block;">${fmtMoney(num(t.amount))}</span>`:''}
+        </span>
+      </span>
+    </button>`;
+  }).join(''):`<div class="empty-state">In ${monthLabel(state.month)} sind noch keine Buchungen eingetragen.</div>`;
+  return `<div class="section"><div class="section-title">Buchungen · ${monthLabel(state.month)}</div>${rows}</div>`;
+}
+
+function renderBudget(){
+  const txs=transactionsForMonth(state.month);
+  const spent={};
+  txs.filter(t=>t.type==='expense').forEach(t=>{ spent[t.category]=(spent[t.category]||0)+ownShare(t); });
+  const cats=catsOfType('expense').filter(c=>!c.noConsumption);
+  const rows=cats.length?cats.map(c=>{
+    const b=num(state.budgets[c.id]||0), s=spent[c.id]||0;
+    const p=b>0?Math.max(0,Math.min(100,(s/b)*100)):0, over=b>0&&s>b;
+    return `<div class="budget-row">
+      <div class="budget-top">
+        <div class="budget-name"><span class="cat-dot" style="background:${c.color}"></span><span class="txt">${escapeHtml(c.name)}</span></div>
+        <input class="budget-input mono-input" type="number" min="0" step="10" placeholder="0" value="${state.budgets[c.id]??''}" data-action="setBudget" data-cat="${c.id}">
+      </div>
+      ${b>0?`<div class="progress-track"><div class="progress-fill ${over?'over':''}" style="width:${p}%; ${over?'':'background:'+c.color}"></div></div>
+        <div class="budget-remain ${over?'over':''}">${over?fmtMoney(s-b)+' über Budget':fmtMoney(b-s)+' übrig'} · ${s<0?fmtMoney(-s)+' im Plus':fmtMoney(s)+' ausgegeben'}</div>`
+      :`<div class="budget-remain">${s<0?fmtMoney(-s)+' im Plus':fmtMoney(s)+' ausgegeben'}, kein Budget gesetzt</div>`}
+    </div>`;
+  }).join(''):`<div class="empty-state">Du hast noch keine Ausgaben-Kategorie.</div>`;
+  return `<div class="section">
+    <div class="section-title"><span>Monatsbudget je Kategorie</span><button class="link-btn" data-action="openCategories">Kategorien verwalten</button></div>
+    ${rows}</div>`;
+}
+
+function renderAbos(){
+  const subs=detectSubscriptions();
+  const total=subs.reduce((s,x)=>s+x.amount,0);
+  const rows=subs.length?subs.map(s=>{
+    const c=catById(s.category);
+    return `<div class="sub-row"><div>
+      <div class="sub-name">${escapeHtml(s.payee)}</div>
+      <div class="sub-meta"><span class="cat-dot" style="background:${c.color}; display:inline-block; margin-right:6px;"></span>${escapeHtml(c.name)} · in ${s.months} Monaten gebucht</div>
+    </div><div class="sub-amount mono">${fmtMoney(s.amount)}</div></div>`;
+  }).join(''):`<div class="empty-state">Noch keine Abos erkannt. Ein Abo taucht hier auf, sobald derselbe Zahlungsempfänger in mindestens zwei verschiedenen Monaten gebucht wurde.</div>`;
+  return `${subs.length?`<div class="sub-total"><div class="label">Monatlich gebunden</div><div class="amount mono">${fmtMoney(total)}</div></div>`:''}
+  <div class="section"><div class="section-title">Erkannte Abos & wiederkehrende Zahlungen</div>${rows}</div>`;
+}
+
+function transactionsForYear(y){ return state.transactions.filter(t=>t.date.slice(0,4)===y); }
+
+function renderJahr(){
+  const y=state.month.slice(0,4);
+  const txs=transactionsForYear(y);
+  if(!txs.length) return `<div class="section"><div class="empty-state">Für ${y} sind noch keine Buchungen eingetragen.</div></div>`;
+
+  const perMonth=[];
+  for(let m=0;m<12;m++){
+    const key=y+'-'+String(m+1).padStart(2,'0');
+    const mt=txs.filter(t=>t.date.slice(0,7)===key);
+    const inc=mt.filter(t=>t.type==='income').reduce((a,t)=>a+num(t.amount),0);
+    const exp=mt.filter(t=>t.type==='expense').reduce((a,t)=>a+ownShare(t),0);
+    perMonth.push({m, key, inc, exp, has:mt.length>0});
+  }
+  const peak=Math.max(1, ...perMonth.map(x=>Math.max(x.inc, Math.abs(x.exp))));
+
+  const incTotal=perMonth.reduce((a,x)=>a+x.inc,0);
+  const expTotal=perMonth.reduce((a,x)=>a+x.exp,0);
+  const reserved=txs.filter(t=>t.type==='expense'&&!isConsumption(t.category)).reduce((a,t)=>a+ownShare(t),0);
+  const activeMonths=perMonth.filter(x=>x.has).length || 1;
+
+  const bars=perMonth.map(x=>`
+    <div class="ym-row">
+      <div class="ym-label">${MONTH_NAMES[x.m].slice(0,3)}</div>
+      <div class="ym-bars">
+        <div class="ym-bar inc" style="width:${(x.inc/peak)*100}%"></div>
+        <div class="ym-bar exp" style="width:${(Math.max(0,x.exp)/peak)*100}%"></div>
+      </div>
+      <div class="ym-net mono ${x.inc-x.exp<0?'neg':''}">${x.has?((x.inc-x.exp<0?'−':'')+fmtMoney(Math.abs(x.inc-x.exp))):'—'}</div>
+    </div>`).join('');
+
+  const byCat={};
+  txs.filter(t=>t.type==='expense'&&isConsumption(t.category)).forEach(t=>{ byCat[t.category]=(byCat[t.category]||0)+ownShare(t); });
+  const consTotal=Object.values(byCat).reduce((a,b)=>a+b,0);
+  const catRows=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([id,amt])=>{
+    const c=catById(id), p=Math.max(0, consTotal>0?(amt/consTotal)*100:0);
+    return `<div class="budget-row">
+      <div class="budget-top">
+        <div class="budget-name"><span class="cat-dot" style="background:${c.color}"></span><span class="txt">${escapeHtml(c.name)}</span></div>
+        <div class="mono">${fmtMoney(amt)}</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:${p}%; background:${c.color}"></div></div>
+      <div class="budget-remain">${fmtMoney(amt/activeMonths)} pro Monat im Schnitt</div>
+    </div>`;
+  }).join('');
+
+  const byIncCat={};
+  txs.filter(t=>t.type==='income').forEach(t=>{ byIncCat[t.category]=(byIncCat[t.category]||0)+num(t.amount); });
+  const incRows=Object.entries(byIncCat).sort((a,b)=>b[1]-a[1]).map(([id,amt])=>{
+    const c=catById(id);
+    return `<div class="ledger-row" style="cursor:default;">
+      <span class="row-left"><span class="cat-dot" style="background:${c.color}"></span>
+        <span class="row-text"><span class="row-payee">${escapeHtml(c.name)}</span>
+        <span class="row-meta" style="display:block;">${fmtMoney(amt/activeMonths)} pro Monat im Schnitt</span></span></span>
+      <span class="row-right"><span class="row-amount mono income">${fmtMoney(amt)}</span></span>
+    </div>`;
+  }).join('');
+
+  const seen={};
+  const big=txs.filter(t=>t.type==='expense').sort((a,b)=>ownShare(b)-ownShare(a))
+    .filter(t=>{ const k=t.payee.trim().toLowerCase(); if(seen[k]) return false; seen[k]=1; return true; })
+    .slice(0,6).map(t=>{
+    const c=catById(t.category);
+    return `<div class="ledger-row" style="cursor:default;">
+      <span class="row-left"><span class="cat-dot" style="background:${c.color}"></span>
+        <span class="row-text"><span class="row-payee">${escapeHtml(t.payee)}</span>
+        <span class="row-meta" style="display:block;">${fmtDate(t.date)}${t.date.slice(0,4)} · ${escapeHtml(c.name)}</span></span></span>
+      <span class="row-right"><span class="row-amount mono">${fmtMoney(ownShare(t))}</span></span>
+    </div>`;
+  }).join('');
+
+  return `<div class="hero">
+    <div class="label">Saldo ${y}</div>
+    <div class="amount mono ${incTotal-expTotal<0?'neg':'pos'}">${incTotal-expTotal<0?'−':''}${fmtMoney(Math.abs(incTotal-expTotal))}</div>
+    <div class="sub"><div>Einnahmen <b class="mono">${fmtMoney(incTotal)}</b></div><div>Ausgaben <b class="mono">${fmtMoney(expTotal)}</b></div></div>
+    ${reserved>0?`<div class="sub" style="margin-top:6px;"><div>davon Rücklagen &amp; Umbuchungen <b class="mono">${fmtMoney(reserved)}</b></div></div>`:''}
+  </div>
+  <div class="section">
+    <div class="section-title"><span>Verlauf über das Jahr</span><span class="ym-legend"><i class="inc"></i>ein <i class="exp"></i>aus</span></div>
+    ${bars}
+  </div>
+  ${catRows?`<div class="section"><div class="section-title">Ausgaben nach Kategorie im Jahr</div>${catRows}</div>`:''}
+  ${incRows?`<div class="section"><div class="section-title">Einnahmen im Jahr</div>${incRows}</div>`:''}
+  ${big?`<div class="section"><div class="section-title">Größte Einzelposten im Jahr</div>${big}</div>`:''}`;
+}
+
+function renderNav(){
+  const tabs=[['dashboard','Übersicht'],['buchungen','Buchungen'],['budget','Budget'],['abos','Abos'],['jahr','Jahr']];
+  return `<div class="nav">${tabs.map(([id,l])=>`<button class="${state.tab===id?'active':''}" data-action="setTab" data-tab="${id}"><span class="nav-dot"></span>${l}</button>`).join('')}</div>`;
+}
+
+/* --- Neue Buchung inkl. Aufteilung --- */
+function renderTransactionSheet(){
+  const d=state.txDraft;
+  const cats=catsOfType(d.type);
+  const total=num(d.amount);
+  const splitTotal=d.splits.reduce((s,x)=>s+num(x.amount),0);
+  const rest=total-splitTotal;
+
+  const splitSection = d.type==='expense' ? `
+    <div class="divider"></div>
+    <div class="split-head">
+      <div class="t">Für andere ausgelegt</div>
+      <button class="link-btn" data-action="addSplit">+ Person</button>
+    </div>
+    ${d.splits.length? d.splits.map((s,i)=>`
+      <div class="split-line">
+        <input class="n" type="text" placeholder="Name" value="${escapeHtml(s.name)}" data-input="splitName" data-idx="${i}">
+        <input class="a" type="number" step="0.01" min="0" placeholder="0,00" value="${s.amount}" data-input="splitAmount" data-idx="${i}">
+        <button class="rm" data-action="removeSplit" data-idx="${i}">×</button>
+      </div>`).join('')
+      + `<button class="link-btn" data-action="splitEven" style="margin-bottom:8px;">Gleichmäßig auf ${d.splits.length+1} Personen aufteilen</button>
+         <div class="split-summary">${shareSummary(total, splitTotal)}</div>`
+      : `<div class="hint">Wenn du für andere mitbezahlt hast, trage hier ein, wer dir wie viel gibt. Die Beträge sind frei wählbar und dürfen den Gesamtbetrag auch übersteigen. Die Rückzahlungen kannst du später einzeln abhaken.</div>`}
+  ` : '';
+
+  return `<div class="backdrop" data-action="closeSheetBackdrop">
+    <div class="sheet" onclick="event.stopPropagation()"><div class="sheet-grip"></div>
+      <h2>Neue Buchung</h2>
+      <div class="type-toggle">
+        <button class="${d.type==='expense'?'active-expense':''}" data-action="setDraftTxType" data-type="expense">Ausgabe</button>
+        <button class="${d.type==='income'?'active-income':''}" data-action="setDraftTxType" data-type="income">Einnahme</button>
+      </div>
+      ${state.error?`<div class="error">${escapeHtml(state.error)}</div>`:''}
+      <div class="field" style="margin-bottom:6px;"><label>Zahlungsempfänger / Bezeichnung</label>
+        <input type="text" autocomplete="off" placeholder="z. B. Kinotickets, Rewe, Arbeitgeber" value="${escapeHtml(d.payee)}" data-input="payee">
+      </div>
+      <div id="payee-suggest">${payeeSuggestHtml()}</div>
+      <div class="field"><label>Gesamtbetrag</label>
+        <input type="number" class="mono-input" min="0" step="0.01" placeholder="0,00" value="${d.amount}" data-input="amount"></div>
+      <div class="field"><label>Kategorie</label>
+        ${cats.length?`<select data-input="category">${cats.map(c=>`<option value="${c.id}" ${d.category===c.id?'selected':''}>${escapeHtml(c.name)}</option>`).join('')}</select>`
+          :`<div class="hint">Für ${d.type==='expense'?'Ausgaben':'Einnahmen'} gibt es noch keine Kategorie.</div>`}
+      </div>
+      <button class="link-btn" data-action="openNewCategoryFromTx" style="margin-bottom:12px;">+ Neue Kategorie anlegen</button>
+      <div class="field"><label>Datum</label>
+        <input type="date" value="${d.date}" data-input="date"></div>
+      ${splitSection}
+      <div class="sheet-actions">
+        <button class="btn btn-secondary" data-action="closeSheet">Abbrechen</button>
+        <button class="btn btn-primary" data-action="saveTransaction">Speichern</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* --- Detailansicht einer Buchung --- */
+function renderDetailSheet(){
+  const t=txById(state.detailId);
+  if(!t) return '';
+  const c=catById(t.category);
+  const sp=splits(t);
+  const own=ownShare(t), op=openSum(t), got=settledSum(t);
+
+  const list = sp.length ? sp.map((s,i)=>`
+    <div class="settle-row">
+      <button class="check ${s.settled?'on':''}" data-action="toggleSettled" data-idx="${i}">${s.settled?'✓':''}</button>
+      <input class="n" type="text" placeholder="Name" value="${escapeHtml(s.name)}" data-input="settleName" data-idx="${i}">
+      <input class="a" type="number" step="0.01" placeholder="0,00" value="${s.amount}" data-input="settleAmount" data-idx="${i}">
+      <button class="row-del" data-action="removeSettle" data-idx="${i}">×</button>
+    </div>`).join('') : `<div class="hint" style="margin-top:8px;">Keine Aufteilung hinterlegt.</div>`;
+
+  return `<div class="backdrop" data-action="closeSheetBackdrop">
+    <div class="sheet" onclick="event.stopPropagation()"><div class="sheet-grip"></div>
+      <h2>Buchung bearbeiten</h2>
+      <div class="type-toggle">
+        <button class="${t.type==='expense'?'active-expense':''}" data-action="setTxType" data-type="expense">Ausgabe</button>
+        <button class="${t.type==='income'?'active-income':''}" data-action="setTxType" data-type="income">Einnahme</button>
+      </div>
+      <div class="field"><label>Zahlungsempfänger / Bezeichnung</label>
+        <input type="text" value="${escapeHtml(t.payee)}" data-input="txPayee"></div>
+      <div class="field"><label>Gesamtbetrag</label>
+        <input type="number" class="mono-input" min="0" step="0.01" value="${t.amount}" data-input="txAmount"></div>
+      <div class="field"><label>Kategorie</label>
+        <select data-input="txCategory">${catsOfType(t.type).map(x=>`<option value="${x.id}" ${t.category===x.id?'selected':''}>${escapeHtml(x.name)}</option>`).join('')}</select></div>
+      <div class="field"><label>Datum</label>
+        <input type="date" value="${t.date}" data-input="txDate"></div>
+      ${t.type==='expense'&&sp.length?`<div class="split-summary" style="margin-top:10px;">
+        ${own<0?`Bisher <b class="mono">${fmtMoney(-own)}</b> im Plus`:`Dein Anteil bisher: <b class="mono">${fmtMoney(own)}</b>`}<br>
+        Erhalten: <b class="mono">${fmtMoney(got)}</b> · offen: <b class="mono">${fmtMoney(op)}</b>
+      </div>`:''}
+      ${state.error?`<div class="error" style="margin-top:12px;">${escapeHtml(state.error)}</div>`:''}
+      ${t.type==='expense'?`<div class="divider"></div>
+        <div class="split-head"><div class="t">Rückzahlungen</div><button class="link-btn" data-action="addSettleRow">+ Person</button></div>
+        ${list}
+        <div class="hint" style="margin-top:10px;">Hake das Kästchen ab, sobald jemand gezahlt hat – die Auswertungen rechnen den Betrag dann gegen, auch über den Kaufpreis hinaus.</div>`:''}
+      <div class="hint">Änderungen werden gespeichert, sobald du ein Feld verlässt.</div>
+      <div class="sheet-actions">
+        <button class="btn btn-danger" data-action="deleteTransaction">Löschen</button>
+        <button class="btn btn-primary" data-action="closeSheet">Fertig</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderCategoriesSheet(){
+  const body=[['expense','Ausgaben'],['income','Einnahmen']].map(([type,label])=>{
+    const cats=catsOfType(type);
+    const rows=cats.length?cats.map(c=>{
+      const u=countUsage(c.id);
+      return `<div class="cat-manage-row">
+        <div class="settle-left"><span class="cat-dot" style="background:${c.color}"></span>
+          <div><div class="cat-manage-name">${escapeHtml(c.name)}</div>
+          <div class="cat-manage-meta">${u===0?'noch nicht verwendet':u+(u===1?' Buchung':' Buchungen')}${c.noConsumption?' · kein Konsum':''}</div></div></div>
+        <div class="row-right">
+          <button class="link-btn" data-action="editCategory" data-id="${c.id}">Ändern</button>
+          <button class="row-del" data-action="deleteCategory" data-id="${c.id}">×</button>
+        </div></div>`;
+    }).join(''):`<div class="empty-state" style="padding:14px 2px;">Keine ${label}-Kategorie vorhanden.</div>`;
+    return `<div class="section-title" style="margin-top:16px;">${label}</div>${rows}`;
+  }).join('');
+  return `<div class="backdrop" data-action="closeSheetBackdrop">
+    <div class="sheet" onclick="event.stopPropagation()"><div class="sheet-grip"></div>
+      <h2>Kategorien</h2>
+      ${state.error?`<div class="error">${escapeHtml(state.error)}</div>`:''}
+      ${body}
+      <div class="sheet-actions">
+        <button class="btn btn-secondary" data-action="closeSheet">Fertig</button>
+        <button class="btn btn-primary" data-action="openNewCategory">Neue Kategorie</button>
+      </div></div></div>`;
+}
+
+function renderCategoryFormSheet(){
+  const d=state.catDraft||{name:'',color:PALETTE[0],type:'expense'};
+  const isEdit=state.sheet==='editCategory';
+  return `<div class="backdrop" data-action="closeSheetBackdrop">
+    <div class="sheet" onclick="event.stopPropagation()"><div class="sheet-grip"></div>
+      <h2>${isEdit?'Kategorie ändern':'Neue Kategorie'}</h2>
+      ${state.error?`<div class="error">${escapeHtml(state.error)}</div>`:''}
+      <div class="field"><label>Name</label>
+        <input type="text" id="c-name" value="${escapeHtml(d.name)}" placeholder="z. B. Restaurants, Kita, Nebenjob"></div>
+      <div class="field"><label>Art</label></div>
+      <div class="type-toggle" style="margin-top:-6px;">
+        <button class="${d.type==='expense'?'active-expense':''}" data-action="setDraftType" data-type="expense">Ausgabe</button>
+        <button class="${d.type==='income'?'active-income':''}" data-action="setDraftType" data-type="income">Einnahme</button>
+      </div>
+      <div class="field"><label>Farbe</label><div class="swatches">
+        ${PALETTE.map(col=>`<button class="swatch ${d.color===col?'selected':''}" style="background:${col}" data-action="setDraftColor" data-color="${col}"></button>`).join('')}
+      </div></div>
+      ${d.type==='expense'?`<button class="toggle-row" data-action="toggleNoConsumption">
+        <span class="check ${d.noConsumption?'on':''}">${d.noConsumption?'✓':''}</span>
+        <span class="tr-text">
+          <span class="tr-title">Zählt nicht als Konsum</span>
+          <span class="tr-sub">Für Sparpläne und Umbuchungen. Bleibt im Saldo, taucht aber nicht in der Ausgabenaufschlüsselung, im Budget und in der Abo-Erkennung auf.</span>
+        </span>
+      </button>`:''}
+      <div class="sheet-actions">
+        <button class="btn btn-secondary" data-action="cancelCategoryForm">Abbrechen</button>
+        <button class="btn btn-primary" data-action="saveCategory">${isEdit?'Speichern':'Anlegen'}</button>
+      </div></div></div>`;
+}
+
+function initViewportWatch(){
+  const vv = window.visualViewport;
+  if(!vv) return;
+  const apply = ()=>{
+    const inset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+    document.documentElement.style.setProperty('--kb', Math.round(inset)+'px');
+  };
+  vv.addEventListener('resize', apply);
+  vv.addEventListener('scroll', apply);
+  apply();
+}
+
+function scrollFieldIntoView(el){
+  const sheet = el.closest ? el.closest('.sheet') : null;
+  if(!sheet) return;
+  const top = el.getBoundingClientRect().top - sheet.getBoundingClientRect().top + sheet.scrollTop;
+  sheet.scrollTo({ top: Math.max(0, top - 72), behavior:'smooth' });
+}
+
+function bindFocusScroll(){
+  document.querySelectorAll('.sheet input, .sheet select, .sheet textarea').forEach(el=>{
+    const bring = ()=>{ setTimeout(()=>{ try{ scrollFieldIntoView(el); }catch(e){} }, 320); };
+    el.addEventListener('focus', bring);
+    el.addEventListener('click', bring);
+  });
+}
+
+function bindEvents(){
+  bindFocusScroll();
+  document.querySelectorAll('[data-action]').forEach(el=>{
+    if(el.dataset.action==='setBudget'){
+      el.addEventListener('change', e=>{
+        const v=e.target.value;
+        if(v==='') delete state.budgets[e.target.dataset.cat];
+        else state.budgets[e.target.dataset.cat]=num(v);
+        saveState();
+      });
+    } else el.addEventListener('click', onAction);
+  });
+  document.querySelectorAll('[data-input]').forEach(el=>{
+    const kind=el.dataset.input;
+    if(kind==='txPayee'||kind==='txAmount'||kind==='txCategory'||kind==='txDate'){
+      el.addEventListener('change', async e=>{
+        const t=txById(state.detailId);
+        if(!t) return;
+        const v=e.target.value;
+        if(kind==='txPayee'){ if(!v.trim()){ state.error='Die Bezeichnung darf nicht leer sein.'; render(); return; } t.payee=v.trim(); }
+        else if(kind==='txAmount'){ if(num(v)<=0){ state.error='Der Betrag muss größer als 0 sein.'; render(); return; } t.amount=num(v); }
+        else if(kind==='txCategory'){ t.category=v; }
+        else if(kind==='txDate'){ if(!v){ state.error='Bitte ein Datum wählen.'; render(); return; } t.date=v; state.month=v.slice(0,7); }
+        state.error='';
+        await saveState(); render();
+      });
+      return;
+    }
+    if(kind==='settleName'||kind==='settleAmount'){
+      el.addEventListener('change', async e=>{
+        const t=txById(state.detailId);
+        if(!t) return;
+        const s=t.splits[Number(e.target.dataset.idx)];
+        if(kind==='settleName') s.name=e.target.value.trim()||'Ohne Namen';
+        else s.amount=num(e.target.value);
+        await saveState(); render();
+      });
+      return;
+    }
+    const evt = (el.tagName==='SELECT'||el.type==='date') ? 'change' : 'input';
+    el.addEventListener(evt, e=>{
+      const v=e.target.value;
+      if(kind==='splitName') state.txDraft.splits[Number(e.target.dataset.idx)].name=v;
+      else if(kind==='splitAmount'){
+        state.txDraft.splits[Number(e.target.dataset.idx)].amount=v;
+        updateSplitSummary();
+      }
+      else{
+        state.txDraft[kind]=v;
+        if(kind==='amount') updateSplitSummary();
+        if(kind==='payee') updatePayeeSuggestion();
+      }
+    });
+  });
+  const cn=document.getElementById('c-name');
+  if(cn){ cn.addEventListener('input', e=>{ state.catDraft.name=e.target.value; }); cn.focus(); }
+}
+
+function updateSplitSummary(){
+  const d=state.txDraft;
+  if(!d||!d.splits.length) return;
+  const el=document.querySelector('.split-summary');
+  if(!el) return;
+  const total=num(d.amount), st=d.splits.reduce((s,x)=>s+num(x.amount),0);
+  el.innerHTML=shareSummary(total, st);
+}
+
+function newDraft(type){
+  const cats=catsOfType(type);
+  return {type, payee:'', amount:'', category:cats.length?cats[0].id:'', date:new Date().toISOString().slice(0,10), splits:[]};
+}
+
+async function onAction(e){
+  const a=e.currentTarget.dataset.action;
+  const idx=Number(e.currentTarget.dataset.idx);
+
+  if(a==='prevMonth'){ state.month=shiftMonth(state.month,-1); render(); }
+  else if(a==='nextMonth'){ state.month=shiftMonth(state.month,1); render(); }
+  else if(a==='prevYear'){ state.month=(Number(state.month.slice(0,4))-1)+state.month.slice(4); render(); }
+  else if(a==='nextYear'){ state.month=(Number(state.month.slice(0,4))+1)+state.month.slice(4); render(); }
+  else if(a==='setTab'){ state.tab=e.currentTarget.dataset.tab; render(); }
+
+  else if(a==='openSheet'){ state.txDraft=newDraft('expense'); state.sheet='transaction'; state.error=''; render(); }
+  else if(a==='closeSheet'||a==='closeSheetBackdrop'){ state.sheet=null; state.txDraft=null; state.catDraft=null; state.detailId=null; state.error=''; render(); }
+  else if(a==='setDraftTxType'){
+    const t=e.currentTarget.dataset.type;
+    state.txDraft.type=t;
+    const cats=catsOfType(t);
+    if(!cats.some(c=>c.id===state.txDraft.category)) state.txDraft.category=cats.length?cats[0].id:'';
+    if(t==='income') state.txDraft.splits=[];
+    render();
+  }
+  else if(a==='useSuggestion'){
+    const f=bestPayeeMatch();
+    if(!f) return;
+    state.txDraft.payee=f.payee;
+    if(!num(state.txDraft.amount)) state.txDraft.amount=String(f.amount);
+    if(catsOfType(state.txDraft.type).some(c=>c.id===f.category)) state.txDraft.category=f.category;
+    state.error=''; render();
+  }
+  else if(a==='addSplit'){ state.txDraft.splits.push({id:uid('sp'), name:'', amount:''}); render(); }
+  else if(a==='removeSplit'){ state.txDraft.splits.splice(idx,1); render(); }
+  else if(a==='splitEven'){
+    const d=state.txDraft, total=num(d.amount), n=d.splits.length+1;
+    if(total<=0){ state.error='Trage zuerst den Gesamtbetrag ein.'; render(); return; }
+    const share=Math.floor((total/n)*100)/100;
+    d.splits.forEach(s=>{ s.amount=share.toFixed(2); });
+    state.error=''; render();
+  }
+  else if(a==='saveTransaction'){
+    const d=state.txDraft;
+    if(!d.category){ state.error='Lege zuerst eine passende Kategorie an.'; render(); return; }
+    if(!d.payee.trim()||num(d.amount)<=0||!d.date){ state.error='Bitte Bezeichnung, Betrag und Datum ausfüllen.'; render(); return; }
+    const cleanSplits=d.splits.filter(s=>num(s.amount)>0).map(s=>({id:s.id, name:s.name.trim()||'Ohne Namen', amount:num(s.amount), settled:false}));
+    state.transactions.push({id:uid('tx'), payee:d.payee.trim(), amount:num(d.amount), category:d.category, type:d.type, date:d.date, splits:cleanSplits});
+    state.month=d.date.slice(0,7); state.sheet=null; state.txDraft=null; state.error='';
+    await saveState(); render();
+  }
+
+  else if(a==='openDetail'){ state.detailId=e.currentTarget.dataset.id; state.sheet='detail'; state.error=''; render(); }
+  else if(a==='setTxType'){
+    const t=txById(state.detailId), newType=e.currentTarget.dataset.type;
+    if(t.type===newType) return;
+    const cats=catsOfType(newType);
+    if(!cats.length){ state.error='Für '+(newType==='expense'?'Ausgaben':'Einnahmen')+' gibt es noch keine Kategorie.'; render(); return; }
+    t.type=newType;
+    if(!cats.some(c=>c.id===t.category)) t.category=cats[0].id;
+    if(newType==='income') t.splits=[];
+    state.error='';
+    await saveState(); render();
+  }
+  else if(a==='toggleSettled'){
+    const t=txById(state.detailId);
+    t.splits[idx].settled=!t.splits[idx].settled;
+    await saveState(); render();
+  }
+  else if(a==='removeSettle'){
+    const t=txById(state.detailId);
+    t.splits.splice(idx,1);
+    await saveState(); render();
+  }
+  else if(a==='addSettleRow'){
+    const t=txById(state.detailId);
+    t.splits.push({id:uid('sp'), name:'', amount:'', settled:false});
+    state.error='';
+    await saveState(); render();
+  }
+  else if(a==='deleteTransaction'){
+    state.transactions=state.transactions.filter(t=>t.id!==state.detailId);
+    state.sheet=null; state.detailId=null;
+    await saveState(); render();
+  }
+
+  else if(a==='retrySave'){ await saveNow(); }
+  else if(a==='downloadBackup'){
+    if(!downloadBackup()){ state.error='Der Download wurde blockiert. Nutze stattdessen „Kopieren“.'; render(); }
+  }
+  else if(a==='openBackup'){ state.sheet='backup'; state.error=''; render(); }
+  else if(a==='copyBackup'){
+    const ta=document.getElementById('backup-out');
+    ta.select(); ta.setSelectionRange(0, 999999);
+    try{ await navigator.clipboard.writeText(ta.value); }catch(e){ try{ document.execCommand('copy'); }catch(e2){} }
+  }
+  else if(a==='importBackup'){
+    const raw=(document.getElementById('backup-in').value||'').trim();
+    if(!raw){ state.error='Bitte zuerst den gesicherten Text einfügen.'; render(); return; }
+    try{
+      const d=JSON.parse(raw);
+      if(!Array.isArray(d.transactions)) throw new Error('Format passt nicht');
+      state.transactions=d.transactions.map(t=>({...t, splits:t.splits||[]}));
+      state.budgets=d.budgets||{};
+      state.categories=(d.categories&&d.categories.length)?d.categories:state.categories;
+      state.sheet=null; state.error='';
+      await saveNow();
+    }catch(e){ state.error='Der Text konnte nicht gelesen werden: '+e.message; render(); }
+  }
+  else if(a==='askWipe'){ state.confirm='wipe'; render(); }
+  else if(a==='cancelConfirm'){ state.confirm=null; render(); }
+  else if(a==='wipeData'){
+    state.transactions=[]; state.budgets={}; state.confirm=null;
+    await saveState(); render();
+  }
+  else if(a==='openCategories'){ state.sheet='categories'; state.error=''; render(); }
+  else if(a==='openNewCategory'){ state.catDraft={name:'',color:PALETTE[0],type:'expense'}; state.sheet='newCategory'; state.error=''; render(); }
+  else if(a==='openNewCategoryFromTx'){ state.catDraft={name:'',color:PALETTE[0],type:state.txDraft.type}; state.sheet='newCategory'; state.error=''; render(); }
+  else if(a==='setDraftType'){ state.catDraft.type=e.currentTarget.dataset.type; render(); }
+  else if(a==='setDraftColor'){ state.catDraft.color=e.currentTarget.dataset.color; render(); }
+  else if(a==='toggleNoConsumption'){ state.catDraft.noConsumption=!state.catDraft.noConsumption; render(); }
+  else if(a==='cancelCategoryForm'){
+    state.catDraft=null; state.error='';
+    state.sheet = state.txDraft ? 'transaction' : 'categories';
+    render();
+  }
+  else if(a==='editCategory'){
+    const c=catById(e.currentTarget.dataset.id);
+    state.catDraft={id:c.id,name:c.name,color:c.color,type:c.type,noConsumption:!!c.noConsumption};
+    state.sheet='editCategory'; state.error=''; render();
+  }
+  else if(a==='saveCategory'){
+    const d=state.catDraft;
+    const name=(document.getElementById('c-name').value||'').trim();
+    if(!name){ state.error='Bitte einen Namen eingeben.'; render(); return; }
+    if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase()&&c.id!==d.id)){ state.error='Diese Kategorie gibt es schon.'; render(); return; }
+    let newId=d.id;
+    if(d.id){ const c=state.categories.find(x=>x.id===d.id); c.name=name; c.color=d.color; c.type=d.type; c.noConsumption=!!d.noConsumption && d.type==='expense'; }
+    else{ newId=uid('cat'); state.categories.push({id:newId,name,color:d.color,type:d.type,noConsumption:!!d.noConsumption && d.type==='expense'}); }
+    if(state.txDraft){
+      state.sheet='transaction';
+      if(!d.id && state.txDraft.type===d.type) state.txDraft.category=newId;
+    } else state.sheet='categories';
+    state.catDraft=null; state.error='';
+    await saveState(); render();
+  }
+  else if(a==='deleteCategory'){
+    const id=e.currentTarget.dataset.id, u=countUsage(id);
+    if(u>0){ state.error=`„${catById(id).name}“ wird noch von ${u===1?'einer Buchung':u+' Buchungen'} verwendet.`; render(); return; }
+    state.categories=state.categories.filter(c=>c.id!==id);
+    delete state.budgets[id]; state.error='';
+    await saveState(); render();
+  }
+}
+
+(async function init(){ initViewportWatch(); render(); await loadState(); render(); await detectStorage(); render(); })();
+</script>
+</body>
+</html>
